@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner - Grocery Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .result-box {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Grocery<span>Store</span></a>
+            <div class="nav-links">
+                <a href="index.html">Back to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding: 40px 20px;">
+        <h2>AI Meal Planner & Smart List Generator</h2>
+        
+        <div style="margin-top: 20px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+            <p style="margin-bottom: 15px; color: var(--text-light);">Enter what kind of meal you want, or your dietary preferences, and AI will suggest a meal and ingredients.</p>
+            <input type="text" id="mealPrompt" placeholder="e.g. Healthy high protein dinner for 2" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; outline: none; font-size: 16px;">
+            <button class="btn main-btn" style="margin-top: 15px;" onclick="generateMeal()">Generate Recipe & List</button>
+        </div>
+
+        <div id="plannerResult" class="result-box" style="margin-top: 30px; display: none; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd; white-space: pre-line;">
+        </div>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/planner.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Grocery Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Grocery<span>Store</span></a>
+            <div class="nav-links">
+                <a href="cart.html">Back to Cart</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding: 40px 20px;">
+        <h2>Checkout</h2>
+        <div style="display: flex; gap: 40px; margin-top: 20px; flex-wrap: wrap;">
+            <div style="flex: 2; min-width: 300px;">
+                <h3>Shipping Address</h3>
+                <textarea id="shippingAddress" rows="4" style="width: 100%; padding: 10px; margin-top: 10px; border-radius: 4px; border: 1px solid #ccc; font-family: inherit;" placeholder="Enter your full address..."></textarea>
+                
+                <h3 style="margin-top: 20px;">Payment Method</h3>
+                <div style="padding: 15px; border: 1px solid #ccc; border-radius: 4px; margin-top: 10px; background: #fff;">
+                    <label><input type="radio" checked> Mock Credit/Debit Card</label>
+                </div>
+            </div>
+            
+            <div style="flex: 1; padding: 20px; background: #fff; border-radius: 8px; border: 1px solid #ddd; height: fit-content; min-width: 250px;">
+                <h3>Order Summary</h3>
+                <div id="checkoutSummary" style="margin-top: 15px; font-weight: 600; font-size: 18px;">
+                    Loading...
+                </div>
+                <button class="btn main-btn block-btn" style="margin-top: 20px;" onclick="placeOrder()">Place Order</button>
+            </div>
+        </div>
+    </main>
+    <script src="js/api.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>

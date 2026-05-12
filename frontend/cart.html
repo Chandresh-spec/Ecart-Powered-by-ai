@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Grocery Store</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Grocery<span>Store</span></a>
+            <div class="nav-links">
+                <a href="index.html">Back to Shopping</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding: 40px 20px;">
+        <h2>Your Shopping Cart</h2>
+        <div id="cartContent" style="margin-top: 20px;">
+            <p>Loading cart...</p>
+        </div>
+        
+        <div id="cartTotal" style="margin-top: 30px; font-size: 24px; font-weight: 600; display: none;">
+            Total: ₹ <span id="totalPrice">0</span>
+        </div>
+        <button id="checkoutBtn" class="btn main-btn" style="margin-top: 20px; display: none;" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>
