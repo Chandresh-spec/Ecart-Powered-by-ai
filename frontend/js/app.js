@@ -123,15 +123,19 @@ function renderProducts(products) {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.style.animation = `fadeInUp 0.4s ease-out ${i * 0.05}s both`;
+        card.style.cursor = 'pointer';
         card.innerHTML = `
             <img src="${p.image || 'https://via.placeholder.com/200x180?text=No+Image'}" class="product-img" alt="${p.name}" loading="lazy">
             <div class="product-category">${p.category_name || ''}</div>
             <div class="product-name">${p.name}</div>
             <div class="product-price">${p.price}</div>
-            <button class="product-add" onclick="addToCart(${p.id})">
+            <button class="product-add" onclick="event.stopPropagation(); addToCart(${p.id})">
                 <i class="fas fa-plus"></i> Add to Cart
             </button>
         `;
+        card.addEventListener('click', () => {
+            window.location.href = 'product.html?id=' + p.id;
+        });
         grid.appendChild(card);
     });
 }
@@ -194,5 +198,14 @@ async function updateCartCount() {
 window.onload = () => {
     checkAuthState();
     loadCategories();
-    loadProducts();
+    
+    // Check for search query in URL
+    const params = new URLSearchParams(window.location.search);
+    const searchQuery = params.get('search');
+    if (searchQuery) {
+        document.getElementById('searchInput').value = searchQuery;
+        performSearch();
+    } else {
+        loadProducts();
+    }
 };

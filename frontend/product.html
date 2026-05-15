@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - GroceryStore</title>
+    <meta name="description" content="View product details, reviews, and add to cart on GroceryStore.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/product.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Ambient Glow Background -->
+    <div class="ambient-glow"></div>
+
+    <!-- Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-leaf logo-icon"></i>
+                Grocery<span>Store</span>
+            </a>
+            
+            <div class="search-bar" id="searchBar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search products or try AI: 'eggs under 50'...">
+                <button onclick="goSearchHome()" id="searchBtn" aria-label="Search">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="planner.html" class="nav-link" id="plannerLink">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Planner</span>
+                </a>
+                <a href="login.html" class="nav-link" id="loginBtn">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Login</span>
+                </a>
+                <a href="profile.html" class="nav-link" id="profileBtn" style="display:none;">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="cart.html" class="nav-link cart-link" id="navCartBtn" style="display:none;">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </a>
+                <a href="#" class="nav-link logout-link" id="logoutBtn" onclick="logout()" style="display:none;">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" id="breadcrumb">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumbProduct">Loading...</span>
+        </nav>
+
+        <!-- Product Detail Section -->
+        <section class="product-detail" id="productDetail">
+            <!-- Skeleton Loader -->
+            <div class="detail-grid skeleton-detail" id="skeletonLoader">
+                <div class="detail-image-wrap">
+                    <div class="skel-detail-img"></div>
+                </div>
+                <div class="detail-info">
+                    <div class="skel-line w40" style="height:16px;margin-bottom:12px;"></div>
+                    <div class="skel-line w80" style="height:32px;margin-bottom:16px;"></div>
+                    <div class="skel-line w60" style="height:22px;margin-bottom:24px;"></div>
+                    <div class="skel-line w100" style="height:80px;margin-bottom:20px;"></div>
+                    <div class="skel-line w40" style="height:48px;"></div>
+                </div>
+            </div>
+
+            <!-- Actual Content (hidden until loaded) -->
+            <div class="detail-grid" id="detailContent" style="display:none;">
+                <!-- Image Section -->
+                <div class="detail-image-wrap">
+                    <div class="image-badge" id="imageBadge" style="display:none;">
+                        <i class="fas fa-bolt"></i> <span id="discountBadge"></span>
+                    </div>
+                    <img src="" alt="" class="detail-img" id="productImage">
+                    <div class="image-glow"></div>
+                </div>
+
+                <!-- Info Section -->
+                <div class="detail-info">
+                    <div class="detail-category" id="detailCategory"></div>
+                    <h1 class="detail-name" id="detailName"></h1>
+                    
+                    <div class="detail-price-row">
+                        <span class="detail-price" id="detailPrice"></span>
+                        <span class="detail-original-price" id="detailOriginalPrice" style="display:none;"></span>
+                        <span class="detail-discount-tag" id="detailDiscountTag" style="display:none;"></span>
+                    </div>
+
+                    <div class="detail-stock" id="detailStock">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="stockText"></span>
+                    </div>
+
+                    <p class="detail-description" id="detailDescription"></p>
+
+                    <!-- Quantity Selector -->
+                    <div class="quantity-section">
+                        <label class="qty-label">Quantity</label>
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="changeQty(-1)" id="qtyMinus">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <span class="qty-value" id="qtyValue">1</span>
+                            <button class="qty-btn" onclick="changeQty(1)" id="qtyPlus">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="detail-actions">
+                        <button class="btn-add-cart" onclick="addToCartDetail()" id="addToCartBtn">
+                            <i class="fas fa-shopping-bag"></i>
+                            Add to Cart
+                        </button>
+                        <button class="btn-buy-now" onclick="buyNow()" id="buyNowBtn">
+                            <i class="fas fa-bolt"></i>
+                            Buy Now
+                        </button>
+                    </div>
+
+                    <!-- Product Meta Info -->
+                    <div class="detail-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-truck-fast"></i>
+                            <div>
+                                <strong>Free Delivery</strong>
+                                <span>On orders above ₹199</span>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-rotate-left"></i>
+                            <div>
+                                <strong>Easy Returns</strong>
+                                <span>7 days return policy</span>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-shield-halved"></i>
+                            <div>
+                                <strong>100% Fresh</strong>
+                                <span>Quality guaranteed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section class="reviews-section" id="reviewsSection">
+            <div class="section-header">
+                <h2><i class="fas fa-star"></i> Customer Reviews</h2>
+                <p class="section-sub" id="reviewCount">Loading reviews...</p>
+            </div>
+
+            <div class="reviews-container" id="reviewsContainer">
+                <!-- Reviews will be injected here -->
+            </div>
+
+            <!-- Write a Review (for logged-in users) -->
+            <div class="write-review" id="writeReview" style="display:none;">
+                <h3><i class="fas fa-pen"></i> Write a Review</h3>
+                <div class="rating-picker" id="ratingPicker">
+                    <span class="rating-star" data-rating="1"><i class="fas fa-star"></i></span>
+                    <span class="rating-star" data-rating="2"><i class="fas fa-star"></i></span>
+                    <span class="rating-star" data-rating="3"><i class="fas fa-star"></i></span>
+                    <span class="rating-star" data-rating="4"><i class="fas fa-star"></i></span>
+                    <span class="rating-star" data-rating="5"><i class="fas fa-star"></i></span>
+                </div>
+                <textarea id="reviewComment" placeholder="Share your experience with this product..." rows="4"></textarea>
+                <button class="btn-submit-review" onclick="submitReview()" id="submitReviewBtn">
+                    <i class="fas fa-paper-plane"></i> Submit Review
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo"><i class="fas fa-leaf logo-icon"></i> Grocery<span>Store</span></a>
+                    <p>Farm-fresh groceries delivered to your doorstep with AI-powered smart shopping.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="planner.html">AI Planner</a>
+                    <a href="cart.html">Cart</a>
+                    <a href="profile.html">Profile</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">Delivery Info</a>
+                    <a href="#">Returns</a>
+                    <a href="#">Contact Us</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 GroceryStore. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget" id="chatWidget">
+        <div class="chat-header" onclick="toggleChat()">
+            <div class="chat-header-left">
+                <div class="chat-avatar"><i class="fas fa-robot"></i></div>
+                <span>AI Assistant</span>
+                <span class="chat-online-dot"></span>
+            </div>
+            <i class="fas fa-chevron-up" id="chatToggleIcon"></i>
+        </div>
+        <div class="chat-body" id="chatBody" style="display: none;">
+            <div class="messages" id="chatMessages">
+                <div class="msg ai">
+                    <div class="msg-avatar"><i class="fas fa-robot"></i></div>
+                    <div class="msg-bubble">Hello! I'm your AI grocery assistant. How can I help you today? 🛒</div>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInputMsg" placeholder="Ask me anything..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
+                <button onclick="sendChatMessage()" aria-label="Send message"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="toast-icon fas fa-check-circle"></i>
+        <span class="toast-msg" id="toastMsg"></span>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/product.js"></script>
+</body>
+</html>
