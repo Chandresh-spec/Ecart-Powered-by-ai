@@ -20,13 +20,13 @@ async function sendChatMessage() {
     appendMessage(msg, 'user');
     input.value = '';
     
-    const loadingId = appendMessage("...", 'ai');
+    const loadingId = appendMessage("Thinking...", 'ai');
     
     try {
         const data = await apiCall('/ai/chatbot/', 'POST', { message: msg }, false);
-        document.getElementById(loadingId).innerText = data.response;
+        document.getElementById(loadingId).querySelector('.msg-bubble').innerText = data.response;
     } catch (e) {
-        document.getElementById(loadingId).innerText = "Sorry, I am facing an issue right now.";
+        document.getElementById(loadingId).querySelector('.msg-bubble').innerText = "Sorry, I'm facing an issue right now.";
     }
 }
 
@@ -36,7 +36,13 @@ function appendMessage(text, sender) {
     const id = "msg_" + Date.now();
     div.id = id;
     div.className = `msg ${sender}`;
-    div.innerText = text;
+    
+    const avatarIcon = sender === 'ai' ? 'fa-robot' : 'fa-user';
+    div.innerHTML = `
+        <div class="msg-avatar"><i class="fas ${avatarIcon}"></i></div>
+        <div class="msg-bubble">${text}</div>
+    `;
+    
     msgs.appendChild(div);
     msgs.scrollTop = msgs.scrollHeight;
     return id;

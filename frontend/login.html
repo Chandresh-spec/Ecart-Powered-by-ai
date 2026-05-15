@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GroceryStore</title>
+    <meta name="description" content="Sign in to GroceryStore for fresh groceries delivered fast.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <!-- Animated Background Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Floating Grocery Icons -->
+    <div class="floating-icons" id="floatingIcons"></div>
+
+    <!-- Main Container -->
+    <div class="auth-wrapper">
+        <!-- Left Panel - Branding -->
+        <div class="brand-panel">
+            <div class="brand-content">
+                <a href="index.html" class="brand-logo">
+                    <i class="fas fa-leaf brand-icon"></i>
+                    <span>Grocery<em>Store</em></span>
+                </a>
+                <h1 class="brand-title">Fresh Groceries,<br><span>Delivered Fast!</span></h1>
+                <p class="brand-subtitle">Join thousands of happy customers getting farm-fresh produce delivered to their doorstep.</p>
+                <div class="brand-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="10000">0</span>
+                        <span class="stat-label">Happy Customers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="500">0</span>
+                        <span class="stat-label">Products</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="30">0</span>
+                        <span class="stat-label">Min Delivery</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Auth Forms -->
+        <div class="auth-panel">
+            <div class="auth-card" id="authCard">
+                <!-- Tab Switcher -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                    <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </button>
+                    <div class="tab-indicator" id="tabIndicator"></div>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active" onsubmit="handleLogin(event)">
+                    <h2 class="form-title">Welcome Back!</h2>
+                    <p class="form-desc">Sign in to continue shopping</p>
+
+                    <div class="input-group" id="loginUsernameGroup">
+                        <div class="input-icon"><i class="fas fa-user"></i></div>
+                        <input type="text" id="l_username" placeholder=" " required autocomplete="username">
+                        <label for="l_username">Username</label>
+                        <div class="input-highlight"></div>
+                    </div>
+
+                    <div class="input-group" id="loginPasswordGroup">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="l_password" placeholder=" " required autocomplete="current-password">
+                        <label for="l_password">Password</label>
+                        <div class="input-highlight"></div>
+                        <button type="button" class="toggle-pwd" onclick="togglePassword('l_password', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="auth-submit" id="loginSubmit">
+                        <span class="btn-text">Sign In</span>
+                        <span class="btn-loader" style="display:none;"><i class="fas fa-circle-notch fa-spin"></i></span>
+                        <span class="btn-ripple"></span>
+                    </button>
+
+                    <div class="divider"><span>or continue with</span></div>
+
+                    <div class="social-btns">
+                        <button type="button" class="social-btn google"><i class="fab fa-google"></i></button>
+                        <button type="button" class="social-btn facebook"><i class="fab fa-facebook-f"></i></button>
+                        <button type="button" class="social-btn apple"><i class="fab fa-apple"></i></button>
+                    </div>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+                    <h2 class="form-title">Create Account</h2>
+                    <p class="form-desc">Start your fresh journey today</p>
+
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-user"></i></div>
+                        <input type="text" id="r_username" placeholder=" " required autocomplete="username">
+                        <label for="r_username">Username</label>
+                        <div class="input-highlight"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                        <input type="email" id="r_email" placeholder=" " required autocomplete="email">
+                        <label for="r_email">Email Address</label>
+                        <div class="input-highlight"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-icon"><i class="fas fa-lock"></i></div>
+                        <input type="password" id="r_password" placeholder=" " required autocomplete="new-password" oninput="checkPasswordStrength(this.value)">
+                        <label for="r_password">Password</label>
+                        <div class="input-highlight"></div>
+                        <button type="button" class="toggle-pwd" onclick="togglePassword('r_password', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <div class="password-strength" id="pwdStrength">
+                        <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+                        <span class="strength-text" id="strengthText"></span>
+                    </div>
+
+                    <button type="submit" class="auth-submit" id="registerSubmit">
+                        <span class="btn-text">Create Account</span>
+                        <span class="btn-loader" style="display:none;"><i class="fas fa-circle-notch fa-spin"></i></span>
+                    </button>
+                </form>
+
+                <!-- Toast Notification -->
+                <div class="toast" id="toast">
+                    <i class="toast-icon fas fa-check-circle"></i>
+                    <span class="toast-msg" id="toastMsg"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

@@ -5,35 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - GroceryStore</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .profile-card {
+            margin-top: 24px; padding: 24px;
+            background: var(--bg-card); border: 1px solid var(--glass-border);
+            border-radius: var(--radius); color: var(--text-secondary);
+        }
+        .profile-card h3 {
+            font-size: 18px; font-weight: 700; margin-bottom: 16px;
+            color: var(--text-primary); display: flex; align-items: center; gap: 8px;
+        }
+        .profile-card h3 i { color: var(--primary); }
+        .order-item {
+            padding: 16px; margin-bottom: 12px;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm); transition: var(--transition);
+        }
+        .order-item:hover { border-color: rgba(132,194,37,0.3); }
+    </style>
 </head>
 <body>
+    <div class="ambient-glow"></div>
     <header class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">Grocery<span>Store</span></a>
-            <div class="nav-links">
-                <a href="index.html">Back to Home</a>
-            </div>
+            <a href="index.html" class="logo"><i class="fas fa-leaf logo-icon"></i> Grocery<span>Store</span></a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fas fa-arrow-left"></i> <span>Back to Home</span></a>
+            </nav>
         </div>
     </header>
 
-    <main class="container" style="padding: 40px 20px;">
-        <h2>My Profile & Orders</h2>
+    <main class="container" style="padding: 40px 24px; position: relative; z-index: 1; min-height: 60vh;">
+        <div class="section-header">
+            <h2><i class="fas fa-user-circle"></i> My Profile & Orders</h2>
+            <p class="section-sub">View your account details and order history</p>
+        </div>
         
-        <div style="margin-top: 30px;">
-            <h3>Your Details</h3>
-            <div id="profileDetails" style="margin-top: 10px; padding: 15px; background: #fff; border-radius: 8px; border: 1px solid #ddd;">
-                Loading...
-            </div>
+        <div class="profile-card">
+            <h3><i class="fas fa-id-card"></i> Your Details</h3>
+            <div id="profileDetails">Loading...</div>
         </div>
 
-        <div style="margin-top: 30px;">
-            <h3>Order History</h3>
-            <div id="orderHistory" style="margin-top: 15px;">
-                Loading...
-            </div>
+        <div class="profile-card">
+            <h3><i class="fas fa-box"></i> Order History</h3>
+            <div id="orderHistory">Loading...</div>
         </div>
     </main>
+
     <script src="js/api.js"></script>
     <script src="js/profile.js"></script>
 </body>

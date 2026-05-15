@@ -3,31 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - Grocery Store</title>
+    <title>Cart - GroceryStore</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="ambient-glow"></div>
     <header class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">Grocery<span>Store</span></a>
-            <div class="nav-links">
-                <a href="index.html">Back to Shopping</a>
-            </div>
+            <a href="index.html" class="logo"><i class="fas fa-leaf logo-icon"></i> Grocery<span>Store</span></a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fas fa-arrow-left"></i> <span>Back to Shopping</span></a>
+            </nav>
         </div>
     </header>
 
-    <main class="container" style="padding: 40px 20px;">
-        <h2>Your Shopping Cart</h2>
-        <div id="cartContent" style="margin-top: 20px;">
-            <p>Loading cart...</p>
+    <main class="container" style="padding: 40px 24px; position: relative; z-index: 1; min-height: 60vh;">
+        <div class="section-header">
+            <h2><i class="fas fa-shopping-bag"></i> Your Shopping Cart</h2>
+            <p class="section-sub">Review your items before checkout</p>
+        </div>
+        <div id="cartContent" style="margin-top: 24px;">
+            <div style="color:var(--text-muted); text-align:center; padding:40px;">
+                <i class="fas fa-circle-notch fa-spin" style="font-size:24px; color:var(--primary);"></i>
+                <p style="margin-top:12px;">Loading cart...</p>
+            </div>
         </div>
         
-        <div id="cartTotal" style="margin-top: 30px; font-size: 24px; font-weight: 600; display: none;">
-            Total: ₹ <span id="totalPrice">0</span>
+        <div id="cartTotal" style="margin-top: 30px; font-size: 26px; font-weight: 700; display: none; padding: 20px; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--radius);">
+            Total: <span style="color:var(--primary);">₹ <span id="totalPrice">0</span></span>
         </div>
-        <button id="checkoutBtn" class="btn main-btn" style="margin-top: 20px; display: none;" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+        <button id="checkoutBtn" class="btn-primary" style="margin-top: 20px; display: none; padding: 16px 32px; font-size: 16px;" onclick="window.location.href='checkout.html'">
+            <i class="fas fa-credit-card"></i> Proceed to Checkout
+        </button>
     </main>
 
     <script src="js/api.js"></script>

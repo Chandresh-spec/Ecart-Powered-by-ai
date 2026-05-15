@@ -1,4 +1,5 @@
-const BASE_URL = 'http://127.0.0.1:8000/api';
+// Auto-detect: use relative URL when served via nginx (Docker), absolute for local dev
+const BASE_URL = window.location.port === '8080' ? '/api' : 'http://127.0.0.1:8000/api';
 
 function getToken() {
     return localStorage.getItem('access_token');

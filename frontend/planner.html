@@ -3,36 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meal Planner - Grocery Store</title>
+    <title>AI Meal Planner - GroceryStore</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        .planner-card {
+            background: var(--bg-card); border: 1px solid var(--glass-border);
+            border-radius: var(--radius); padding: 28px; margin-top: 28px;
+        }
+        .planner-card p { color: var(--text-secondary); margin-bottom: 18px; font-size: 15px; }
+        .planner-input-row { display: flex; gap: 12px; }
+        .planner-input-row input {
+            flex: 1; padding: 14px 18px; border: 1px solid var(--glass-border);
+            border-radius: 12px; background: var(--glass); color: var(--text-primary);
+            font-size: 15px; outline: none; font-family: inherit; transition: var(--transition);
+        }
+        .planner-input-row input:focus {
+            border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+        .planner-input-row input::placeholder { color: var(--text-muted); }
         .result-box {
-            line-height: 1.6;
+            margin-top: 28px; display: none; background: var(--bg-card);
+            border: 1px solid var(--glass-border); border-radius: var(--radius);
+            padding: 24px; white-space: pre-line; line-height: 1.7;
+            color: var(--text-secondary); font-size: 14px;
         }
     </style>
 </head>
 <body>
+    <div class="ambient-glow"></div>
     <header class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">Grocery<span>Store</span></a>
-            <div class="nav-links">
-                <a href="index.html">Back to Home</a>
-            </div>
+            <a href="index.html" class="logo"><i class="fas fa-leaf logo-icon"></i> Grocery<span>Store</span></a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link"><i class="fas fa-arrow-left"></i> <span>Back to Home</span></a>
+            </nav>
         </div>
     </header>
 
-    <main class="container" style="padding: 40px 20px;">
-        <h2>AI Meal Planner & Smart List Generator</h2>
+    <main class="container" style="padding: 40px 24px; position: relative; z-index: 1; min-height: 60vh;">
+        <div class="section-header">
+            <h2><i class="fas fa-wand-magic-sparkles"></i> AI Meal Planner</h2>
+            <p class="section-sub">Let AI suggest recipes and shopping lists for you</p>
+        </div>
         
-        <div style="margin-top: 20px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
-            <p style="margin-bottom: 15px; color: var(--text-light);">Enter what kind of meal you want, or your dietary preferences, and AI will suggest a meal and ingredients.</p>
-            <input type="text" id="mealPrompt" placeholder="e.g. Healthy high protein dinner for 2" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; outline: none; font-size: 16px;">
-            <button class="btn main-btn" style="margin-top: 15px;" onclick="generateMeal()">Generate Recipe & List</button>
+        <div class="planner-card">
+            <p><i class="fas fa-lightbulb" style="color:var(--primary);"></i> Enter what kind of meal you want, or your dietary preferences, and our AI will generate a recipe with ingredients.</p>
+            <div class="planner-input-row">
+                <input type="text" id="mealPrompt" placeholder="e.g. Healthy high protein dinner for 2">
+                <button class="btn-primary" onclick="generateMeal()" style="white-space:nowrap;">
+                    <i class="fas fa-sparkles"></i> Generate
+                </button>
+            </div>
         </div>
 
-        <div id="plannerResult" class="result-box" style="margin-top: 30px; display: none; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd; white-space: pre-line;">
-        </div>
+        <div id="plannerResult" class="result-box"></div>
     </main>
 
     <script src="js/api.js"></script>
